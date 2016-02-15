@@ -1,32 +1,44 @@
-angular.module('omdb', []).factory('omdbApi', function () {
+angular.module('omdb', []).factory('omdbApi', function ($http, $q) {
+    //We are now using $http to perform actual http requests in the module.
+    //$q is for asynchronous support, to return a promise upon completion.
     var service = {};
+    var baseURL = 'http://www.omdbapi.com/?v=1&'; //Base URL for queries
 
-    service.search = function (query) {
-        return {
-            "Search": [{
-                "Title": "Star Wars",
-                "Year": "1983",
-                "Rated": "N/A",
-                "Released": "01 May 1983",
-                "Runtime": "N/A",
-                "Genre": "Action, Adventure, Sci-Fi",
-                "Director": "N/A",
-                "Writer": "N/A",
-                "Actors": "Harrison Ford, Alec Guinness, Mark Hamill, James Earl Jones",
-                "Plot": "N/A",
-                "Language": "English",
-                "Country": "USA",
-                "Awards": "N/A",
-                "Poster": "N/A",
-                "Metascore": "N/A",
-                "imdbRating": "7.8",
-                "imdbVotes": "349",
-                "imdbID": "tt0251413",
-                "Type": "game",
-                "Response": "True"
-            }]
-        };
+    service.search = function(query) {
+        var deferred = $q.defer();
+        var urlFromQuery = baseURL+'s='+encodeURIComponent(query);
+        $http.get(urlFromQuery).success(function(data){
+            deferred.resolve(data);
+        });
+
+        return deferred.promise;
     };
+    // service.search = function (query) {
+    //     return {
+    //         "Search": [{
+    //             "Title": "Star Wars",
+    //             "Year": "1983",
+    //             "Rated": "N/A",
+    //             "Released": "01 May 1983",
+    //             "Runtime": "N/A",
+    //             "Genre": "Action, Adventure, Sci-Fi",
+    //             "Director": "N/A",
+    //             "Writer": "N/A",
+    //             "Actors": "Harrison Ford, Alec Guinness, Mark Hamill, James Earl Jones",
+    //             "Plot": "N/A",
+    //             "Language": "English",
+    //             "Country": "USA",
+    //             "Awards": "N/A",
+    //             "Poster": "N/A",
+    //             "Metascore": "N/A",
+    //             "imdbRating": "7.8",
+    //             "imdbVotes": "349",
+    //             "imdbID": "tt0251413",
+    //             "Type": "game",
+    //             "Response": "True"
+    //         }]
+    //     };
+    // };
 
     service.find = function(id){
         return {

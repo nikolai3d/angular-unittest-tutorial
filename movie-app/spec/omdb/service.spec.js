@@ -86,8 +86,19 @@ describe('omdb service', function () {
 
     it('Star Wars search validation', function () {
         //Using angular.mock.dump to serialize whatever into console, for debugging.
-        console.log(angular.mock.dump(movieData));
-        expect(omdbApi.search('star wars')).toEqual(movieData);
+        //console.log(angular.mock.dump(movieData));
+
+        //This no longer works: our service is no longer synchronous, and returns an unresolved promise instead.
+        //expect(omdbApi.search('star wars')).toEqual(movieData);
+
+        //Asynchronous adaptation:
+        var response;
+        omdbApi.search('star wars').then(function (data) {
+            response = data;
+        });
+
+        expect(response).toEqual(movieData);
+
     });
 
     it('Should return movie data by ID', function () {

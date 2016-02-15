@@ -24,6 +24,29 @@ describe('omdb service', function () {
         }]
     };
 
+    var movieDataById = {
+        "Title": "Star Wars: Episode IV - A New Hope",
+        "Year": "1977",
+        "Rated": "PG",
+        "Released": "25 May 1977",
+        "Runtime": "121 min",
+        "Genre": "Action, Adventure, Fantasy",
+        "Director": "George Lucas",
+        "Writer": "George Lucas",
+        "Actors": "Mark Hamill, Harrison Ford, Carrie Fisher, Peter Cushing",
+        "Plot": "Luke Skywalker joins forces with a Jedi Knight, a cocky pilot, a wookiee and two droids to save the galaxy from the Empire's world-destroying battle-station, while also attempting to rescue Princess Leia from the evil Darth Vader.",
+        "Language": "English",
+        "Country": "USA",
+        "Awards": "Won 6 Oscars. Another 38 wins & 27 nominations.",
+        "Poster": "http://ia.media-imdb.com/images/M/MV5BMTU4NTczODkwM15BMl5BanBnXkFtZTcwMzEyMTIyMw@@._V1_SX300.jpg",
+        "Metascore": "92",
+        "imdbRating": "8.7",
+        "imdbVotes": "852,420",
+        "imdbID": "tt0076759",
+        "Type": "movie",
+        "Response": "True"
+    };
+
     it('Star Wars search validation', function () {
         var omdbApi = {};
 
@@ -33,6 +56,8 @@ describe('omdb service', function () {
         //In this revision, it'd work, since the services.js now contains the 'omdb' module code:
 
         angular.mock.module('omdb');
+
+        // Other ways are deprecated in this revision, since the module 'omdb' is already defined in actual app.
 
         // //Other two ways are by anonymous object and anonymous function, and can be used to brainstorm/prototype
         // //module ideas directly in the test code.
@@ -65,5 +90,17 @@ describe('omdb service', function () {
 
         });
         expect(omdbApi.search('star wars')).toEqual(movieData);
+    });
+
+    it('Should return movie data by ID', function () {
+        var omdbApi;
+
+        angular.mock.module('omdb');
+
+        angular.mock.inject(function (_omdbApi_) {
+            omdbApi = _omdbApi_;
+        });
+
+        expect(omdbApi.find('tt0076759')).toEqual(movieDataById);
     });
 });

@@ -4,11 +4,11 @@
   "description": "Movie App (Angular Unit Tests tutorial)",
   "main": "index.js",
   "repository": {
-    "type" : "git",
-    "url" : "git@github.com:nikolai3d/angular-unittest-tutorial.git"
+    "type": "git",
+    "url": "git@github.com:nikolai3d/angular-unittest-tutorial.git"
   },
   "scripts": {
-    "test" : "./node_modules/karma/bin/karma start karma.conf.js"
+    "test": "./node_modules/karma/bin/karma start karma.conf.js"
   },
   "keywords": [
     "movie",

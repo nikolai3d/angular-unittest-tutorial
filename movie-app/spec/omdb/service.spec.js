@@ -47,60 +47,49 @@ describe('omdb service', function () {
         "Response": "True"
     };
 
+    var omdbApi;
+
+    beforeEach(angular.mock.module('omdb'));
+    // Other ways are deprecated in this revision, since the module 'omdb' is already defined in actual app.
+
+    // //Other two ways are by anonymous object and anonymous function, and can be used to brainstorm/prototype
+    // //module ideas directly in the test code.
+    //
+    // //Option 1: Pass an anonymous JS object literal with a module within.
+    // angular.mock.module({
+    //     'omdbApi': {
+    //         search: function (query) {
+    //             return movieData;
+    //         }
+    //     }
+    // });
+    //
+    // //Option 2: An anonymous function using a $provide service
+    // //Difference is : other services ($http, etc) cannot be injected while using the Option 1(object) form)
+    // angular.mock.module(function ($provide) {
+    //     $provide.factory('omdbApi', function () {
+    //         return {
+    //             search: function (query) {
+    //                 return movieData;
+    //             }
+    //         };
+    //     });
+    // });
+
+
+    beforeEach(angular.mock.inject(function (_omdbApi_) {
+        //The injector passes back an instance of it, if it exists
+        //Underscore wrapping is a convention that the injector uses, to prevent nameclash.
+        omdbApi = _omdbApi_;
+    }));
+
+
     it('Star Wars search validation', function () {
-        var omdbApi = {};
-
-        //Configure the module for usage
-
-        //Option 0 is to reference an existing angularJS module by string.
-        //In this revision, it'd work, since the services.js now contains the 'omdb' module code:
-
-        angular.mock.module('omdb');
-
-        // Other ways are deprecated in this revision, since the module 'omdb' is already defined in actual app.
-
-        // //Other two ways are by anonymous object and anonymous function, and can be used to brainstorm/prototype
-        // //module ideas directly in the test code.
-        //
-        // //Option 1: Pass an anonymous JS object literal with a module within.
-        // angular.mock.module({
-        //     'omdbApi': {
-        //         search: function (query) {
-        //             return movieData;
-        //         }
-        //     }
-        // });
-        //
-        // //Option 2: An anonymous function using a $provide service
-        // //Difference is : other services ($http, etc) cannot be injected while using the Option 1(object) form)
-        // angular.mock.module(function ($provide) {
-        //     $provide.factory('omdbApi', function () {
-        //         return {
-        //             search: function (query) {
-        //                 return movieData;
-        //             }
-        //         };
-        //     });
-        // });
-
-        //inject is what instantiates configured modules
-        angular.mock.inject(function (_omdbApi_) {
-            omdbApi = _omdbApi_; //The injector passes back an instance of it, if it exists
-            //Underscore wrapping is a convention that the injector uses, to prevent nameclash.
-
-        });
         expect(omdbApi.search('star wars')).toEqual(movieData);
     });
 
     it('Should return movie data by ID', function () {
-        var omdbApi;
-
-        angular.mock.module('omdb');
-
-        angular.mock.inject(function (_omdbApi_) {
-            omdbApi = _omdbApi_;
-        });
-
         expect(omdbApi.find('tt0076759')).toEqual(movieDataById);
     });
+
 });

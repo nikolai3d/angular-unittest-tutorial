@@ -13,6 +13,8 @@
 
 ## Headless (in the cloud) options
 
+For headless WebKit scripting, you can use **PhantomJS**
+
 For additional (beyond *Chrome*) karma support you need to add special karma-launcher packages.
 
 See https://www.npmjs.com/browse/keyword/karma-launcher.
@@ -21,11 +23,9 @@ E.g. for PhantomJS you need to do:
 
    ```$ npm install karma-phantomjs-launcher --save-dev```
 
-### Option 2: Install karma-phantomjs-launcher and it'll pull the phantomjs as dependency
+### PhantomJS installation
 
-### Install PhantomJS first.
-
-Phantom JS is needed to work with headless testing. See http://phantomjs.org. *However*, looks like https://www.npmjs.com/package/phantomjs-prebuilt is a node module that contains a version of PhantomJS,
+Phantom JS is needed to work with headless testing. See http://phantomjs.org. **However**, looks like https://www.npmjs.com/package/phantomjs-prebuilt is a node module that contains a version of PhantomJS,
 and `karma-phantomjs-launcher` has it as a dependency, so then npm installation may also install ```phantomjs```correctly!
 (_Circa February 2016, this option worked fine for C9 Ubuntu (Ubuntu 14.04.2 LTS) and Mac OS X El Capitan 10.11.3_)
 

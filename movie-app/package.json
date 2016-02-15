@@ -8,7 +8,7 @@
     "url" : "git@github.com:nikolai3d/angular-unittest-tutorial.git"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test" : "./node_modules/karma/bin/karma start karma.conf.js"
   },
   "keywords": [
     "movie",

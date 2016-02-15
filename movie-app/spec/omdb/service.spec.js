@@ -27,7 +27,7 @@ describe('omdb service', function () {
         });
 
         //Option 2: An anonymous function using a $provide service
-
+        //Difference is : other services ($http, etc) cannot be injected while using the Option 1(object) form)
         angular.mock.module(function ($provide) {
             $provide.factory('omdbApi', function () {
                 return {

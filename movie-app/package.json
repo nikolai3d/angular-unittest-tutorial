@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "Movie App (Angular Unit Tests tutorial)",
   "main": "index.js",
+  "repository": {
+    "type" : "git",
+    "url" : "git@github.com:nikolai3d/angular-unittest-tutorial.git"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

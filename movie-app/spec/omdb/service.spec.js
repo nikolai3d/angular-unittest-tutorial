@@ -85,6 +85,8 @@ describe('omdb service', function () {
 
 
     it('Star Wars search validation', function () {
+        //Using angular.mock.dump to serialize whatever into console, for debugging.
+        console.log(angular.mock.dump(movieData));
         expect(omdbApi.search('star wars')).toEqual(movieData);
     });
 

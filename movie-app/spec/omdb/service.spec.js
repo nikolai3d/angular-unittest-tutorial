@@ -48,7 +48,7 @@ describe('omdb service', function () {
     };
 
     var omdbApi;
-
+    var $httpBackend; // We need to connect to this service for testing. This replaces the regular HTTP calls with mocked ones.
     beforeEach(angular.mock.module('omdb'));
     // Other ways are deprecated in this revision, since the module 'omdb' is already defined in actual app.
 
@@ -77,14 +77,24 @@ describe('omdb service', function () {
     // });
 
 
-    beforeEach(angular.mock.inject(function (_omdbApi_) {
+    beforeEach(angular.mock.inject(function (_omdbApi_, _$httpBackend_) {
         //The injector passes back an instance of it, if it exists
         //Underscore wrapping is a convention that the injector uses, to prevent nameclash.
         omdbApi = _omdbApi_;
+        $httpBackend = _$httpBackend_;
     }));
 
 
     it('Star Wars search validation', function () {
+
+        //We have to configure the $httpBackend for this.
+
+        $httpBackend.when('GET', 'http://www.omdbapi.com/?v=1&s=star%20wars')
+            .respond(200, movieData);
+
+
+
+
         //Using angular.mock.dump to serialize whatever into console, for debugging.
         //console.log(angular.mock.dump(movieData));
 
@@ -97,6 +107,9 @@ describe('omdb service', function () {
             response = data;
         });
 
+
+        $httpBackend.flush(); //Resolves all the pending promises openg against the mock-HTTP service.
+        
         expect(response).toEqual(movieData);
 
     });

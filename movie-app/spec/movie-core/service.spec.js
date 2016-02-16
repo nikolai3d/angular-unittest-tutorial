@@ -9,6 +9,14 @@ describe('MovieCore', function(){
         $httpBackend = _$httpBackend_;
     }));
 
-    it('Should Create Popular Movie', function(){});
+    it('Should Create Popular Movie', function(){
+
+        var popularMovie = new PopularMovies({
+            movieId: 'tt0076759',
+            description: 'Great movie!'
+        });
+
+        popularMovie.$save();
+    });
 
 });

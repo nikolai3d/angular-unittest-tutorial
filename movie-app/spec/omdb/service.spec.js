@@ -89,7 +89,16 @@ describe('omdb service', function () {
 
         //We have to configure the $httpBackend for this.
 
-        $httpBackend.when('GET', 'http://www.omdbapi.com/?v=1&s=star%20wars')
+        //var expectedURL = 'http://www.omdbapi.com/?v=1&s=star%20wars';
+
+
+        var expectedURL=function(url){
+            return url.indexOf('http://www.omdbapi.com') !== -1;
+        };
+
+
+        //as a second argument to when, the URL validator may be used instead of straightforward URL:
+        $httpBackend.when('GET', expectedURL)
             .respond(200, movieData);
 
 
@@ -109,7 +118,7 @@ describe('omdb service', function () {
 
 
         $httpBackend.flush(); //Resolves all the pending promises openg against the mock-HTTP service.
-        
+
         expect(response).toEqual(movieData);
 
     });

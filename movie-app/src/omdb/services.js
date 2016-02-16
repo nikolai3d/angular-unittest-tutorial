@@ -8,16 +8,20 @@ angular.module('omdb', []).factory('omdbApi', function ($http, $q) {
     var httpPromise = function (url) {
 
         var deferred = $q.defer();
-        $http.get(url).success(function (data) {
-            deferred.resolve(data);
-        });
+        $http.get(url)
+            .success(function (data) {
+                deferred.resolve(data);
+            }).error(function () {
+                //Proper error handling of the promise
+                deferred.reject();
+            });
 
         return deferred.promise;
 
     }
 
     service.search = function (query) {
-        
+
         var urlFromQuery = baseURL + 's=' + encodeURIComponent(query);
 
         return httpPromise(urlFromQuery);

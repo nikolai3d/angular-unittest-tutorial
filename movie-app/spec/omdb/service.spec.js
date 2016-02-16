@@ -143,4 +143,23 @@ describe('omdb service', function () {
         //expect(omdbApi.find('tt0076759')).toEqual(movieDataById);
     });
 
+    it('Should handle error', function () {
+        var expectedURL = "http://www.omdbapi.com/?v=1&i=tt0076759";
+        var response;
+
+        $httpBackend.expect('GET', expectedURL).respond(500);
+
+        omdbApi.find('tt0076759')
+            .then(function (data) {
+                response = data;
+            }).catch(function () {
+                response = 'Error!';
+            });
+
+        $httpBackend.flush();
+
+        expect(response).toEqual('Error!');
+
+    });
+
 });

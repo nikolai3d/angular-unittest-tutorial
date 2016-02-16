@@ -92,7 +92,7 @@ describe('omdb service', function () {
         //var expectedURL = 'http://www.omdbapi.com/?v=1&s=star%20wars';
 
 
-        var expectedURL=function(url){
+        var expectedURL = function (url) {
             return url.indexOf('http://www.omdbapi.com') !== -1;
         };
 
@@ -124,7 +124,23 @@ describe('omdb service', function () {
     });
 
     it('Should return movie data by ID', function () {
-        expect(omdbApi.find('tt0076759')).toEqual(movieDataById);
+
+        var expectedURL = "http://www.omdbapi.com/?v=1&i=tt0076759";
+
+        $httpBackend.expect('GET', expectedURL).respond(200, movieDataById);
+
+        var response;
+        omdbApi.find('tt0076759').then(function (data) {
+            response = data;
+        });
+
+
+        $httpBackend.flush(); //Resolves all the pending promises openg against the mock-HTTP service.
+
+        expect(response).toEqual(movieDataById);
+
+        //Synchronous version does not work anymore
+        //expect(omdbApi.find('tt0076759')).toEqual(movieDataById);
     });
 
 });

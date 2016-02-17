@@ -92,4 +92,19 @@ describe('MovieCore', function () {
 
         expect($httpBackend.flush).not.toThrow(); //Another check
     });
+
+    it('Should authenticate GET request',function() {
+        var expectedHeaders = function(headers){
+            dump(angular.mock.dump(headers));
+
+            return angular.fromJson(headers).authToken === 'cookieValueTeddyBear';
+        };
+
+        $httpBackend.expectGET('popular/tt0076759', expectedHeaders)
+            .respond(200);
+
+        PopularMovies.get({movieId: 'tt0076759'});
+
+        expect($httpBackend.flush).not.toThrow(); //Another check
+    });
 });

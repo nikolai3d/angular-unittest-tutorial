@@ -5,10 +5,12 @@ module.exports = {
     "globals": {
         "angular": true,
         "beforeEach": true,
+        "afterEach": true,
         "describe": true,
         "it": true,
         "module": true,
-        "expect": true
+        "expect": true,
+        "dump": true
     },
 
     "extends": "eslint:recommended",

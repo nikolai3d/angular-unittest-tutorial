@@ -63,4 +63,33 @@ describe('MovieCore', function () {
         expect($httpBackend.flush).not.toThrow(); //Another check
 
     });
+
+
+    it('Should Update Popular Movie', function () {
+
+        //'{"movieId":"tt0076759","description":"Great movie!"}'
+        var expectedDataValidator = function (data) {
+
+            dump(angular.mock.dump(data));
+
+            return angular.fromJson(data).movieId === 'tt0076759';
+
+        }
+
+        //To expect, we can pass a validator function, an exact value, or regular expression.
+        //var expectedDataExact = '{"movieId":"tt0076759","description":"Great movie!"}';
+
+        //var expectedDataRegexp = /{"movieId":"tt0076759","description":".*"}/;
+        $httpBackend.expectPUT('popular') //expectedDataExact) //expectedDataValidator)
+            .respond(200);
+
+        var popularMovie = new PopularMovies({
+            movieId: 'tt0076759',
+            description: 'Great movie!'
+        });
+
+        popularMovie.$update();
+
+        expect($httpBackend.flush).not.toThrow(); //Another check
+    });
 });

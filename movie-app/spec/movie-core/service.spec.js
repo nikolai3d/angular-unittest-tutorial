@@ -17,12 +17,20 @@ describe('MovieCore', function () {
 
     it('Should Create Popular Movie', function () {
 
+        //'{"movieId":"tt0076759","description":"Great movie!"}'
         var expectedDataValidator = function (data) {
+
             dump(angular.mock.dump(data));
-            return true;
+
+            return angular.fromJson(data).movieId === 'tt0076759';
+
         }
 
-        $httpBackend.expectPOST(/./, expectedDataValidator)
+        //To expect, we can pass a validator function, an exact value, or regular expression.
+        var expectedDataExact = '{"movieId":"tt0076759","description":"Great movie!"}';
+
+        var expectedDataRegexp = /{"movieId":"tt0076759","description":".*"}/;
+        $httpBackend.expectPOST(/./, expectedDataRegexp) //expectedDataExact) //expectedDataValidator)
             .respond(201);
 
         var popularMovie = new PopularMovies({
@@ -31,6 +39,28 @@ describe('MovieCore', function () {
         });
 
         popularMovie.$save();
+
+        expect($httpBackend.flush).not.toThrow(); //Another check
     });
 
+
+    it("Should Get Popular Movie by id", function () {
+
+        var urlValidator = function (url) {
+            dump(url);
+            return url === 'popular/tt0076759';
+
+        };
+
+
+        $httpBackend.expectGET(urlValidator)
+            .respond(200);
+
+        PopularMovies.get({
+            movieId: 'tt0076759'
+        });
+
+        expect($httpBackend.flush).not.toThrow(); //Another check
+
+    });
 });

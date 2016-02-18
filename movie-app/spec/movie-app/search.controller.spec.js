@@ -4,27 +4,19 @@ describe('', function () {
     var $location = {};
 
     //setup
-
+    beforeEach(angular.mock.module('mainMovieApp'));
     beforeEach(angular.mock.inject(function (_$controller_, _$location_) {
 
         //angular.mock.inject is needed so we have access to $controller service
         $location = _$location_;
         $scope = {};
 
-        var controllerPrototype = function (iScope, iLocation) {
-            //iScope will refer to $scope
-            iScope.search = function () {
-                if (iScope.query) {
-                    //iLocation will refer to injected Angular $location service
-                    iLocation.path('/results').search('q', iScope.query);
-                }
-            }
-        };
+
 
         //controllerPrototype is a controller in-line prototype here, no actual test code outside of JS exists.
-        _$controller_(controllerPrototype, {
-            iScope: $scope,
-            iLocation: $location
+        _$controller_('SearchController', {
+            $scope: $scope,
+            $location: $location
         });
     }));
 

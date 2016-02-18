@@ -1,1 +1,1 @@
-angular.module('mainMovieApp', []);
+angular.module('mainMovieApp', ['ui.bootstrap']);

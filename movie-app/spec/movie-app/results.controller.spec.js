@@ -117,6 +117,23 @@ describe('Results Controller', function () {
         //Extra check: make sure the API was called with expected argument.
         expect(injectedOmdbAPI.search).toHaveBeenCalledWith('star wars');
 
-    })
+    });
+
+    it('Should display Error on search error', function () {
+        spyOn(injectedOmdbAPI, 'search').and.callFake(function () {
+            var deferred = injectedQ.defer();
+            deferred.reject(); //Same as previous one, but the promise rejects
+            return deferred.promise;
+        });
+
+        injectedLocation.search('q', 'star wars'); //This creates a query via setting the location URL
+
+
+        $controller('ResultsController', {$scope : $scope, $location: injectedLocation});
+        injectedRootScope.$apply();
+
+        expect($scope.errorMessage).toBe('Something went wrong!');
+
+    });
 
 });

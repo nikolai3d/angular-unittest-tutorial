@@ -13,6 +13,8 @@ angular.module('mainMovieApp')
         iOMDBAPI.search(query)
             .then(function (data) {
                 ioScope.results = data.Search;
-        })
+        }).catch(function () {
+            ioScope.errorMessage = 'Something went wrong!';
+        });
 
     }]);

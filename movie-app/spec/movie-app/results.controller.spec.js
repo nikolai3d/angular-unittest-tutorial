@@ -109,6 +109,9 @@ describe('Results Controller', function () {
         expect($scope.results[1].Title).toBe(sampleResults.Search[1].Title);
         expect($scope.results[2].Title).toBe(sampleResults.Search[2].Title);
 
+        //Extra check: make sure the API was called with expected argument.
+        expect(injectedOmdbAPI.search).toHaveBeenCalledWith('star wars');
+
     })
 
 });

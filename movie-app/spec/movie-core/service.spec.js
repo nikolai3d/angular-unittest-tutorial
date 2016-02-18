@@ -19,16 +19,16 @@ describe('MovieCore', function () {
     it('Should Create Popular Movie', function () {
 
         //'{"movieId":"tt0076759","description":"Great movie!"}'
-        var expectedDataValidator = function (data) {
-
-            //dump(angular.mock.dump(data));
-
-            return angular.fromJson(data).movieId === 'tt0076759';
-
-        }
-
-        //To expect, we can pass a validator function, an exact value, or regular expression.
-        var expectedDataExact = '{"movieId":"tt0076759","description":"Great movie!"}';
+        // var expectedDataValidator = function (data) {
+        //
+        //     //dump(angular.mock.dump(data));
+        //
+        //     return angular.fromJson(data).movieId === 'tt0076759';
+        //
+        // }
+        //
+        // //To expect, we can pass a validator function, an exact value, or regular expression.
+        // var expectedDataExact = '{"movieId":"tt0076759","description":"Great movie!"}';
 
         var expectedDataRegexp = /{"movieId":"tt0076759","description":".*"}/;
         $httpBackend.expectPOST(/./, expectedDataRegexp) //expectedDataExact) //expectedDataValidator)
@@ -68,14 +68,14 @@ describe('MovieCore', function () {
 
     it('Should Update Popular Movie', function () {
 
-        //'{"movieId":"tt0076759","description":"Great movie!"}'
-        var expectedDataValidator = function (data) {
-
-            //dump(angular.mock.dump(data));
-
-            return angular.fromJson(data).movieId === 'tt0076759';
-
-        }
+        // //'{"movieId":"tt0076759","description":"Great movie!"}'
+        // var expectedDataValidator = function (data) {
+        //
+        //     //dump(angular.mock.dump(data));
+        //
+        //     return angular.fromJson(data).movieId === 'tt0076759';
+        //
+        // }
 
         //To expect, we can pass a validator function, an exact value, or regular expression.
         //var expectedDataExact = '{"movieId":"tt0076759","description":"Great movie!"}';

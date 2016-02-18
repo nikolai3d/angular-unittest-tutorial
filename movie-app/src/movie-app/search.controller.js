@@ -20,5 +20,5 @@ var controllerPrototype = function (iLocation) {
     }
 };
 
-angular.module('mainMovieApp', [])
+angular.module('mainMovieApp')
     .controller('SearchController',['$location', controllerPrototype]);

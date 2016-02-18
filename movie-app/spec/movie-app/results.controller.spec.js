@@ -69,8 +69,9 @@ describe('Results Controller', function () {
     var $controller;
     var $scope;
 
-    beforeEach(module('mainMovieApp'));
-
+    beforeEach(angular.mock.module('mainMovieApp'));
+    beforeEach(angular.mock.module('omdb'));
+    
     beforeEach(angular.mock.inject(function (_$controller_) {
         $controller = _$controller_;
         $scope = {};

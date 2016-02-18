@@ -5,31 +5,41 @@ describe('', function () {
 
     //setup
 
-    beforeEach(function () {
-        $location = {
-                url:''
-        };
+    beforeEach(angular.mock.inject(function (_$controller_, _$location_) {
+
+        //angular.mock.inject is needed so we have access to $controller service
+        $location = _$location_;
         $scope = {};
 
-        $scope.search = function () {
-            if ($scope.query) {
-                $location.url = '/results?q=star%20wars';
+        var controllerPrototype = function (iScope, iLocation) {
+            //iScope will refer to $scope
+            iScope.search = function () {
+                if (iScope.query) {
+                    //iLocation will refer to injected Angular $location service
+                    iLocation.path('/results').search('q', iScope.query);
+                }
             }
         };
-    });
+
+        //controllerPrototype is a controller in-line prototype here, no actual test code outside of JS exists.
+        _$controller_(controllerPrototype, {
+            iScope: $scope,
+            iLocation: $location
+        });
+    }));
 
     it('Should Redirect To Query Results Page For Non-Empty Query', function () {
-        $scope.query='star wars';
+        $scope.query = 'star wars';
         $scope.search();
 
-        expect($location.url).toBe('/results?q=star%20wars');
+        expect($location.url()).toBe('/results?q=star%20wars');
     });
 
     it('Should NOT Redirect To Query Results Page For Empty Query', function () {
-        $scope.query='';
+        $scope.query = '';
         $scope.search();
 
-        expect($location.url).toBe('');
+        expect($location.url()).toBe('');
     });
 
 

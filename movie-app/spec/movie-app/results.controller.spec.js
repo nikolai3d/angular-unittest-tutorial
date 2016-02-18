@@ -68,21 +68,23 @@ describe('Results Controller', function () {
 
     var $controller;
     var injectedQ; //To work with promises
-    var injectedRootScope;
+    var injectedRootScope; //To Execute promises
     var $scope;
-    var injectedOmdbAPI;
+    var injectedOmdbAPI; //omdbAPI to intercept and spyOn
+    var injectedLocation; //To pass search parameters
 
 
     beforeEach(angular.mock.module('omdb'));
     beforeEach(angular.mock.module('mainMovieApp'));
 
-    beforeEach(angular.mock.inject(function (_$controller_, _$q_, _$rootScope_, _omdbApi_) {
+    beforeEach(angular.mock.inject(function (_$controller_, _$location_, _$q_, _$rootScope_, _omdbApi_) {
         $controller = _$controller_;
         $scope = {};
 
         injectedQ = _$q_;
         injectedRootScope = _$rootScope_;
         injectedOmdbAPI = _omdbApi_;
+        injectedLocation = _$location_;
     }));
 
     it('Should Load Search Results', function () {
@@ -98,7 +100,10 @@ describe('Results Controller', function () {
             return deferred.promise;
         });
 
-        $controller('ResultsController', {$scope : $scope});
+        injectedLocation.search('q', 'star wars'); //This creates a query via setting the location URL
+
+
+        $controller('ResultsController', {$scope : $scope, $location: injectedLocation});
 
         //At this point, AngularJS Event cycle is ready to process and resolve the promise.
         //But we need this line to actually do the processing:

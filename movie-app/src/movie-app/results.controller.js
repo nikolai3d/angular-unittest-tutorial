@@ -9,7 +9,8 @@ angular.module('mainMovieApp')
         // ioScope.results.push({data: { Title :'Star Wars: Episode VI - Return of the Jedi'}});
 
         //API call
-        iOMDBAPI.search('star wars')
+        var query = iLocation.search().q; //Extracting query out of location, i.e. an URL
+        iOMDBAPI.search(query)
             .then(function (data) {
                 ioScope.results = data.Search;
         })

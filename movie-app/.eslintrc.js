@@ -10,7 +10,8 @@ module.exports = {
         "it": true,
         "module": true,
         "expect": true,
-        "dump": true
+        "dump": true,
+        "spyOn": true
     },
 
     "extends": "eslint:recommended",

@@ -67,21 +67,47 @@ describe('Results Controller', function () {
     };
 
     var $controller;
+    var injectedQ; //To work with promises
+    var injectedRootScope;
     var $scope;
+    var injectedOmdbAPI;
 
-    beforeEach(angular.mock.module('mainMovieApp'));
+
     beforeEach(angular.mock.module('omdb'));
-    
-    beforeEach(angular.mock.inject(function (_$controller_) {
+    beforeEach(angular.mock.module('mainMovieApp'));
+
+    beforeEach(angular.mock.inject(function (_$controller_, _$q_, _$rootScope_, _omdbApi_) {
         $controller = _$controller_;
         $scope = {};
+
+        injectedQ = _$q_;
+        injectedRootScope = _$rootScope_;
+        injectedOmdbAPI = _omdbApi_;
     }));
 
     it('Should Load Search Results', function () {
+
+        //Jasmine spyOn allows us to track calls here:
+        spyOn(injectedOmdbAPI, 'search').and.callFake(function () {
+            //We mock the 'search' function here,
+            // but now we need to mock the promise mechanism too
+            var deferred = injectedQ.defer();
+
+            deferred.resolve(sampleResults);
+
+            return deferred.promise;
+        });
+
         $controller('ResultsController', {$scope : $scope});
-        expect($scope.results[0].data.Title).toBe(sampleResults.Search[0].Title);
-        expect($scope.results[1].data.Title).toBe(sampleResults.Search[1].Title);
-        expect($scope.results[2].data.Title).toBe(sampleResults.Search[2].Title);
+
+        //At this point, AngularJS Event cycle is ready to process and resolve the promise.
+        //But we need this line to actually do the processing:
+
+        injectedRootScope.$apply();
+
+        expect($scope.results[0].Title).toBe(sampleResults.Search[0].Title);
+        expect($scope.results[1].Title).toBe(sampleResults.Search[1].Title);
+        expect($scope.results[2].Title).toBe(sampleResults.Search[2].Title);
 
     })
 

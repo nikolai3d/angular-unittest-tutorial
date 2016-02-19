@@ -1,7 +1,7 @@
 describe('', function () {
 
     //    var $scope = {};
-    var $this = {};
+    var $scope = {};
     var injectedLocation = {};
     var $controller = {};
 
@@ -17,15 +17,17 @@ describe('', function () {
 
     it('Should Redirect To Query Results Page For Non-Empty Query', function () {
         //We are now using $this, and pass scope bindings in a third argument
-        $this = $controller('SearchController', {$location : injectedLocation}, { query : 'star wars'});
-        $this.search();
+        $scope.query = 'star wars';
+        $controller('SearchController', {$scope: $scope, $location : injectedLocation});
+        $scope.search();
         expect(injectedLocation.url()).toBe('/results?q=star%20wars');
     });
 
     it('Should NOT Redirect To Query Results Page For Empty Query', function () {
+        $scope.query = '';
         //We are now using $this, and pass scope bindings in a third argument
-        $this = $controller('SearchController', {$location : injectedLocation}, { query : ''});
-        $this.search();
+        $controller('SearchController', {$scope: $scope, $location : injectedLocation});
+        $scope.search();
         expect(injectedLocation.url()).toBe('');
     });
 

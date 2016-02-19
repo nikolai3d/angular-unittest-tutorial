@@ -20,12 +20,21 @@
                 <p class="lead">Your resource for movie data</p>
             </div>
             <div ng-controller="SearchController">
+                <form class="form-inline-lg" ng-submit="search()">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Film Title..." ng-model="query">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" ng-click="search()">Go!</button>
+                        </span>
+                    </div>
+
+                </form>
             </div>
         </div>
     </div>
 
     <div class="container">
-        <div></div>
+        <div ng-view=""></div>
     </div>
 
     <div class="footer">
@@ -34,11 +43,16 @@
         </div>
     </div>
 
-    <script type="text/javascript" src="http://code.angularjs.org/1.5.0/angular.min.js"></script>
-    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.1.2/ui-bootstrap-tpls.min.js"></script>
+    <script type="text/javascript" src="https://code.angularjs.org/1.5.0/angular.min.js"></script>
+    <script type="text/javascript" src="https://code.angularjs.org/1.5.0/angular-route.min.js"></script>
 
-    <!-- <script src="omdb/services.js"></script>
-    <script src="movie-core/service.js"></script> -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.13.3/ui-bootstrap-tpls.min.js"></script>
+
+    <script src="movie-app/app.js"></script>
+    <script src="omdb/services.js"></script>
+    <script src="movie-core/service.js"></script>
+    <script src="movie-app/search.controller.js"></script>
+    <script src="movie-app/results.controller.js"></script>
 
     </body>
     </html>

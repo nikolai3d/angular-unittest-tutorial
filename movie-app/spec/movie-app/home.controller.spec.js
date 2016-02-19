@@ -12,11 +12,13 @@ describe('Home Controller', function () {
     }];
 
     var localScope;
+    var injectedNgMockInterval;
 
     beforeEach(angular.mock.module('mainMovieApp'));
 
-    beforeEach(angular.mock.inject(function (_$controller_) {
+    beforeEach(angular.mock.inject(function (_$controller_, _$interval_) {
         localScope = {};
+        injectedNgMockInterval = _$interval_;
         _$controller_('HomeController', {
             $scope: localScope
         });
@@ -25,15 +27,17 @@ describe('Home Controller', function () {
     it('Should rotate movies every 5 seconds', function () {
         //Should start at the first movie
         expect(localScope.result.Title).toBe(sampleResults[0].Title);
-
+        injectedNgMockInterval.flush(5000);
         //Should Update after 5 seconds.
         expect(localScope.result.Title).toBe(sampleResults[1].Title);
+        injectedNgMockInterval.flush(5000);
 
         //Should Update after 5 seconds.
         expect(localScope.result.Title).toBe(sampleResults[2].Title);
+        injectedNgMockInterval.flush(5000);
 
         //Should Update after 5 seconds and go back to the first one.
-        expect(localScope.result.Title).toBe(sampleResults[2].Title);
+        expect(localScope.result.Title).toBe(sampleResults[0].Title);
 
 
     });

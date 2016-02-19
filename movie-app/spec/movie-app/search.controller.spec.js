@@ -35,7 +35,12 @@ describe('Search Controller', function () {
     it('Should Redirect To Results after 1 second of Keyboard Inactivity', function () {
         $scope.query = 'star wars';
         $scope.keyup();
-        injectedTimeout.flush(); //ngMock's timeout service, force trigger the timeout
+        //injectedTimeout.flush(500); //This will fail since our timeout is 1000 msec
+
+        injectedTimeout.flush(); //This will pass, trigger the timeout and perform search
+
+        expect(injectedTimeout.verifyNoPendingTasks).not.toThrow();
+        //verifyNoPendingTasks Double-checks test setup, will throw & print error if outstanding timeouts are still there
         expect(injectedLocation.url()).toBe('/results?q=star%20wars');
     });
 

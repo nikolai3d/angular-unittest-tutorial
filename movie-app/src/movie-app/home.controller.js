@@ -9,15 +9,16 @@ angular.module('mainMovieApp')
             });
         };
 
-        PopularMovies.get().then(function (data) {
-            fCarouselOfMovieIDs = data;
+    //    PopularMovies.get().then(function (data) {
+//            fCarouselOfMovieIDs = data;
+            fCarouselOfMovieIDs = ['tt0076759', 'tt0080684','tt0086190'];
             findAndFetchMovieDataByID(fCarouselOfMovieIDs[0]);
 
             $interval(function () {
                 ++fCurrentCarouselIndex;
                 findAndFetchMovieDataByID(fCarouselOfMovieIDs[fCurrentCarouselIndex % fCarouselOfMovieIDs.length]);
             }, 5000);
-        });
+    //    });
 
 
 

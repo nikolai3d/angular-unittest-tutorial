@@ -1,4 +1,4 @@
-describe('', function () {
+describe('Search Controller', function () {
 
     //    var $scope = {};
     var $scope = {};

@@ -87,7 +87,7 @@ describe('Results Controller', function () {
         injectedLocation = _$location_;
     }));
 
-    it('Should Load Search Results', function () {
+    it('Should Load Correct Search Results', function () {
 
         //Jasmine spyOn allows us to track calls here:
         spyOn(injectedOmdbAPI, 'search').and.callFake(function () {

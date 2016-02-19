@@ -1,22 +1,27 @@
 angular.module('mainMovieApp')
-    .controller('HomeController', ['$scope', '$interval', function ($scope, $interval) {
-        var expectedResults = [{
-            "Title": "Star Wars: Episode IV - A New Hope",
-            "imdbID": "tt0076759"
-        }, {
-            "Title": "Star Wars: Episode V - The Empire Strikes Back",
-            "imdbID": "tt0080684"
-        }, {
-            "Title": "Star Wars: Episode VI - Return of the Jedi",
-            "imdbID": "tt0086190"
-        }];
-
-        $scope.result = expectedResults[0];
-
+    .controller('HomeController', ['$scope', '$interval', 'omdbApi', 'PopularMovies', function ($scope, $interval, omdbApi, PopularMovies) {
+        var fCarouselOfMovieIDs = [];
         var fCurrentCarouselIndex = 0;
 
-        $interval(function () {
-            ++fCurrentCarouselIndex;
-            $scope.result = expectedResults[fCurrentCarouselIndex % expectedResults.length];
-        }, 5000);
+        var findAndFetchMovieDataByID = function (id) {
+            omdbApi.find(id).then(function (data) {
+                $scope.result = data;
+            });
+        };
+
+        PopularMovies.get().then(function (data) {
+            fCarouselOfMovieIDs = data;
+            findAndFetchMovieDataByID(fCarouselOfMovieIDs[0]);
+
+            $interval(function () {
+                ++fCurrentCarouselIndex;
+                findAndFetchMovieDataByID(fCarouselOfMovieIDs[fCurrentCarouselIndex % fCarouselOfMovieIDs.length]);
+            }, 5000);
+        });
+
+
+
+        //$scope.result = fCarouselOfMovieIDs[0];
+
+
     }]);

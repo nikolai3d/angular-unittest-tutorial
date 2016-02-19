@@ -44,4 +44,20 @@ describe('Search Controller', function () {
         expect(injectedLocation.url()).toBe('/results?q=star%20wars');
     });
 
+
+    it('Should cancel timeout if a key is pressed', function () {
+        $scope.query = 'star wars';
+        $scope.keyup();
+        $scope.keydown();
+        expect(injectedTimeout.verifyNoPendingTasks).not.toThrow(); //Here it's an actual check: we make sure all timeouts are canceled at this point.
+
+    });
+
+    it('Should cancel timeout if search is executed', function () {
+        $scope.query = 'star wars';
+        $scope.keyup();
+        $scope.search();
+        expect(injectedTimeout.verifyNoPendingTasks).not.toThrow(); //Here it's an actual check: we make sure all timeouts are canceled at this point.
+
+    });
 });

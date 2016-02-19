@@ -3,7 +3,7 @@ describe('Search Controller', function () {
     //    var $scope = {};
     var $scope = {};
     var injectedLocation = {};
-    var injectedTimeout = {};
+    var injectedNgMockTimeout = {};
     var $controller = {};
 
     //setup
@@ -13,8 +13,12 @@ describe('Search Controller', function () {
         //angular.mock.inject is needed so we have access to $controller service
         injectedLocation = _$location_;
         $controller = _$controller_;
-        injectedTimeout = _$timeout_;
-        $controller('SearchController', {$scope: $scope, $timeout: injectedTimeout, $location : injectedLocation});
+        injectedNgMockTimeout = _$timeout_;
+        $controller('SearchController', {
+            $scope: $scope,
+            $timeout: injectedNgMockTimeout,
+            $location: injectedLocation
+        });
 
     }));
 
@@ -37,9 +41,9 @@ describe('Search Controller', function () {
         $scope.keyup();
         //injectedTimeout.flush(500); //This will fail since our timeout is 1000 msec
 
-        injectedTimeout.flush(); //This will pass, trigger the timeout and perform search
+        injectedNgMockTimeout.flush(); //This will pass, trigger the timeout and perform search
 
-        expect(injectedTimeout.verifyNoPendingTasks).not.toThrow();
+        expect(injectedNgMockTimeout.verifyNoPendingTasks).not.toThrow();
         //verifyNoPendingTasks Double-checks test setup, will throw & print error if outstanding timeouts are still there
         expect(injectedLocation.url()).toBe('/results?q=star%20wars');
     });
@@ -49,7 +53,7 @@ describe('Search Controller', function () {
         $scope.query = 'star wars';
         $scope.keyup();
         $scope.keydown();
-        expect(injectedTimeout.verifyNoPendingTasks).not.toThrow(); //Here it's an actual check: we make sure all timeouts are canceled at this point.
+        expect(injectedNgMockTimeout.verifyNoPendingTasks).not.toThrow(); //Here it's an actual check: we make sure all timeouts are canceled at this point.
 
     });
 
@@ -57,7 +61,7 @@ describe('Search Controller', function () {
         $scope.query = 'star wars';
         $scope.keyup();
         $scope.search();
-        expect(injectedTimeout.verifyNoPendingTasks).not.toThrow(); //Here it's an actual check: we make sure all timeouts are canceled at this point.
+        expect(injectedNgMockTimeout.verifyNoPendingTasks).not.toThrow(); //Here it's an actual check: we make sure all timeouts are canceled at this point.
 
     });
 });

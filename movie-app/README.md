@@ -30,3 +30,13 @@ and `karma-phantomjs-launcher` has it as a dependency, so then npm installation 
 (_Circa February 2016, this option worked fine for C9 Ubuntu (Ubuntu 14.04.2 LTS) and Mac OS X El Capitan 10.11.3_)
 
 If that's not the case, head to http://phantomjs.org to download and install the PhantomJS binary appropriate for your system.
+
+## Running the code
+
+   * ```$ node index.js``` to run server
+
+   * ```$ npm test``` to run the Jasmine test suite via Karma, with PhantomJS. (also watches the changes and reruns the tests if source files change)
+
+and/or
+
+   * Locally open `SpecRunner.html` in a browser to run the Jasmine test suite in a browser.

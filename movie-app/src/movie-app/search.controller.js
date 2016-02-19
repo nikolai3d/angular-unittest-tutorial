@@ -1,6 +1,12 @@
 
-var controllerPrototype = function (iScope, iLocation) {
+var controllerPrototype = function (iScope, iTimeout, iLocation) {
     //iScope will refer to $scope
+    iScope.keyup = function(){
+        iTimeout(function () {
+            iScope.search();
+        }, 1000);
+    }
+
     iScope.search = function () {
         if (iScope.query) {
             //iLocation will refer to injected Angular $location service
@@ -21,4 +27,4 @@ var controllerPrototype = function (iScope, iLocation) {
 // };
 
 angular.module('mainMovieApp')
-    .controller('SearchController',['$scope', '$location', controllerPrototype]);
+    .controller('SearchController',['$scope', '$timeout', '$location', controllerPrototype]);

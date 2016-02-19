@@ -16,12 +16,51 @@ describe('Home Controller', function () {
 
     beforeEach(angular.mock.module('mainMovieApp'));
 
-    beforeEach(angular.mock.inject(function (_$controller_, _$interval_) {
+    //Mocking the PopularMovies service behavior, similar to any other way we would mock an asynchronous service.
+
+    beforeEach(angular.mock.inject(function (_$q_, _PopularMovies_) {
+        spyOn(_PopularMovies_, 'get').and.callFake(function () {
+            var deferred = _$q_.defer();
+            deferred.resolve(['tt0076759', 'tt0080684','tt0086190']);
+            return deferred.promise;
+        });
+    }));
+
+    //Mocking the omdbAPI behavior
+    beforeEach(angular.mock.inject(function (_$q_, _omdbApi_) {
+        //Jasmine's spyOn to the rescue
+        spyOn(_omdbApi_, 'find').and.callFake(function () {
+            var deferred = _$q_.defer();
+            //Some funky Jasmine code to fish out the argument that the original 'find' function was called with
+            var findWhatArgument = _omdbApi_.find.calls.mostRecent().args[0];
+            if (findWhatArgument === 'tt0076759') {
+                deferred.resolve(sampleResults[0]);
+            } else if (findWhatArgument === 'tt0080684') {
+                deferred.resolve(sampleResults[1]);
+            } else if (findWhatArgument === 'tt0086190'){
+                deferred.resolve(sampleResults[2]);
+            } else {
+                //If the movie ID is not one of three, reject the promise, will fail test
+                deferred.reject();
+            }
+        //    deferred.resolve(['tt0076759', 'tt0080684','tt0086190']);
+            return deferred.promise;
+        });
+    }));
+
+
+
+    beforeEach(angular.mock.inject(function (_$controller_, _$interval_, _omdbApi_, _PopularMovies_, _$rootScope_) {
         localScope = {};
         injectedNgMockInterval = _$interval_;
         _$controller_('HomeController', {
-            $scope: localScope
+            $scope: localScope,
+            $interval: injectedNgMockInterval,
+            omdbAPI: _omdbApi_,
+            PopularMovies: _PopularMovies_
         });
+
+        _$rootScope_.$apply();
     }));
 
     it('Should rotate movies every 5 seconds', function () {

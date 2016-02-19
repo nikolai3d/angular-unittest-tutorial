@@ -1,4 +1,4 @@
-angular.module('mainMovieApp', ['ui.bootstrap', 'ngRoute', 'omdb'])
+angular.module('mainMovieApp', ['ui.bootstrap', 'ngRoute', 'omdb', 'movieCore'])
     .config(function ($routeProvider) {
         $routeProvider
             .when('/results', {

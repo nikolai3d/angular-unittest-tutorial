@@ -39,12 +39,14 @@ describe('Movie Result Directive', function () {
 
     it('Should Output Movie Result to expected HTML format', function () {
 
-        //var scope = {};
-
         injectedRootScope.fCurrentMovieData = sampleResult;
 
-        var element = injectedCompileService('<movie-result result="fCurrentMovieData"></movie-result>')(injectedRootScope);
 
+        //These lines to execute our directive and produce the HTML.
+        //First , $compile service is used.
+        //Second, $rootScope.$digest() is called.
+
+        var element = injectedCompileService('<movie-result result="fCurrentMovieData"></movie-result>')(injectedRootScope);
 
         injectedRootScope.$digest();
 

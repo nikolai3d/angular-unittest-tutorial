@@ -73,6 +73,7 @@ describe('Results Controller', function () {
     var injectedOmdbAPI; //omdbAPI to intercept and spyOn
     var injectedLocation; //To pass search parameters
     var injectedExceptionHandler; //To monitor exceptions
+    var injectedLogService; //For access to $log logging data.
 
     beforeEach(angular.mock.module('omdb'));
     beforeEach(angular.mock.module('mainMovieApp'));
@@ -83,7 +84,12 @@ describe('Results Controller', function () {
         $exceptionHandlerProvider.mode('log');
     }));
 
-    beforeEach(angular.mock.inject(function (_$controller_, _$location_, _$q_, _$rootScope_, _omdbApi_, _$exceptionHandler_) {
+
+    beforeEach(angular.mock.module(function ($logProvider) {
+        $logProvider.debugEnabled(true);
+    }));
+    
+    beforeEach(angular.mock.inject(function (_$controller_, _$location_, _$q_, _$rootScope_, _omdbApi_, _$exceptionHandler_, _$log_) {
         $controller = _$controller_;
         $scope = {};
 
@@ -92,6 +98,8 @@ describe('Results Controller', function () {
         injectedOmdbAPI = _omdbApi_;
         injectedLocation = _$location_;
         injectedExceptionHandler = _$exceptionHandler_;
+
+        injectedLogService = _$log_;
     }));
 
     it('Should Load Correct Search Results', function () {
@@ -126,6 +134,8 @@ describe('Results Controller', function () {
 
         //Extra check: make sure the API was called with expected argument.
         expect(injectedOmdbAPI.search).toHaveBeenCalledWith('star wars');
+        expect(injectedLogService.debug.logs[0]).toEqual(['Controller Loaded with Query: ','star wars'])
+        expect(injectedLogService.debug.logs[1]).toEqual(['Data Returned For Query: ','star wars', sampleResults]);
 
     });
 

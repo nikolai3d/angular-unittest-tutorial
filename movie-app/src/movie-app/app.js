@@ -14,5 +14,5 @@ angular.module('mainMovieApp', ['ui.bootstrap', 'ngRoute', 'omdb', 'movieCore'])
             });
     })
     .config(function ($logProvider) {
-        $logProvider.debugEnabled(true);
+        $logProvider.debugEnabled(false);
     });

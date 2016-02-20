@@ -1,5 +1,5 @@
 angular.module('mainMovieApp')
-    .controller('ResultsController', ['$scope', '$location', 'omdbApi', '$exceptionHandler', function (ioScope, iLocation, iOMDBAPI, iExceptionHandler) {
+    .controller('ResultsController', ['$scope', '$location', 'omdbApi', '$exceptionHandler', '$log', function (ioScope, iLocation, iOMDBAPI, iExceptionHandler, iLogService) {
         //ioScope will refer to $scope
 
         //Mock results, not actually using the API:
@@ -10,8 +10,12 @@ angular.module('mainMovieApp')
 
         //API call
         var query = iLocation.search().q; //Extracting query out of location, i.e. an URL
+
+        iLogService.debug('Controller Loaded with Query: ', query);
+
         iOMDBAPI.search(query)
             .then(function (data) {
+                iLogService.debug('Data Returned For Query: ', query, data);
                 ioScope.results = data.Search;
             }).catch(function (e) {
                 iExceptionHandler(e);

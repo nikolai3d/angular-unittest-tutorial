@@ -85,10 +85,10 @@ describe('Home Controller', function () {
 
         //Mocking the PopularMovies service behavior, similar to any other way we would mock an asynchronous service.
         //Note that behavior is mocked slightly different for each test
-        spyOn(injectedPopularMovies, 'get').and.callFake(function () {
-            var deferred = injectedQ.defer();
-            deferred.resolve(['tt0076759', 'tt0080684', 'tt0086190']);
-            return deferred.promise;
+        spyOn(injectedPopularMovies, 'query').and.callFake(function (cb) {
+            //var deferred = injectedQ.defer();
+            cb({fPopularResults: ['tt0076759', 'tt0080684', 'tt0086190']});
+            //return deferred.promise;
         });
 
 
@@ -129,10 +129,16 @@ describe('Home Controller', function () {
         //Mocking the PopularMovies service behavior, similar to any other way we would mock an asynchronous service.
         //Note that behavior is mocked slightly different for each test
 
-        spyOn(injectedPopularMovies, 'get').and.callFake(function () {
-            var deferred = injectedQ.defer();
-            deferred.resolve(['tt0076759', 'tt0080684', 'tt0086190', 'ttError']);
-            return deferred.promise;
+        // spyOn(injectedPopularMovies, 'get').and.callFake(function () {
+        //     var deferred = injectedQ.defer();
+        //     deferred.resolve(['tt0076759', 'tt0080684', 'tt0086190', 'ttError']);
+        //     return deferred.promise;
+        // });
+
+        spyOn(injectedPopularMovies, 'query').and.callFake(function (cb) {
+            //var deferred = injectedQ.defer();
+            cb({fPopularResults: ['tt0076759', 'tt0080684', 'tt0086190','ttError']});
+            //return deferred.promise;
         });
 
 

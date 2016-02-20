@@ -19,6 +19,8 @@ describe('Home Controller', function () {
     var injectedControllerService;
     var injectedRootScope;
     var injectedExceptionHandler;
+    var injectedLogService;
+
 
     beforeEach(angular.mock.module('mainMovieApp'));
 
@@ -54,7 +56,15 @@ describe('Home Controller', function () {
 
 
 
-    beforeEach(angular.mock.inject(function (_$controller_, _$interval_, _omdbApi_, _PopularMovies_, _$rootScope_, _$q_, _$exceptionHandler_) {
+    beforeEach(angular.mock.inject(function (_$controller_,
+        _$interval_,
+        _omdbApi_,
+        _PopularMovies_,
+        _$rootScope_,
+        _$q_,
+        _$exceptionHandler_,
+        _$log_) {
+
         localScope = {};
         injectedNgMockInterval = _$interval_;
         injectedQ = _$q_;
@@ -63,6 +73,7 @@ describe('Home Controller', function () {
         injectedRootScope = _$rootScope_;
         injectedControllerService = _$controller_;
         injectedExceptionHandler = _$exceptionHandler_;
+        injectedLogService = _$log_;
 
     }));
 
@@ -98,6 +109,12 @@ describe('Home Controller', function () {
 
         //Should Update after 5 seconds and go back to the first one.
         expect(localScope.fCurrentMovieData.Title).toBe(sampleResults[0].Title);
+
+        console.log(angular.mock.dump(injectedLogService.log.logs));
+        console.log(angular.mock.dump(injectedLogService.info.logs));
+        console.log(angular.mock.dump(injectedLogService.error.logs));
+        console.log(angular.mock.dump(injectedLogService.warn.logs));
+        console.log(angular.mock.dump(injectedLogService.debug.logs));
 
 
     });

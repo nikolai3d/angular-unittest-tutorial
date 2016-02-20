@@ -1,5 +1,12 @@
 angular.module('mainMovieApp')
-    .controller('HomeController', ['$scope', '$interval', 'omdbApi', 'PopularMovies', '$exceptionHandler', function ($scope, $interval, omdbApi, PopularMovies, iExceptionHandler) {
+    .controller('HomeController', ['$scope', '$interval', 'omdbApi', 'PopularMovies', '$exceptionHandler', '$log',
+    function ($scope, $interval, omdbApi, PopularMovies, iExceptionHandler, iLogging) {
+        iLogging.log('standard log');
+        iLogging.info('info log');
+        iLogging.error('error log');
+        iLogging.warn('warn log');
+        iLogging.debug('some debug information');
+
         var fCarouselOfMovieIDs = [];
         var fCurrentCarouselIndex = 0;
         $scope.fCurrentMovieData = null;

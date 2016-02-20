@@ -72,16 +72,18 @@ describe('Results Controller', function () {
     var $scope;
     var injectedOmdbAPI; //omdbAPI to intercept and spyOn
     var injectedLocation; //To pass search parameters
-
+    var injectedExceptionHandler; //To monitor exceptions
 
     beforeEach(angular.mock.module('omdb'));
     beforeEach(angular.mock.module('mainMovieApp'));
 
     beforeEach(angular.mock.module(function ($exceptionHandlerProvider) {
-        $exceptionHandlerProvider.mode('rethrow');
-    }))
+        //The default mode is 'rethrow', when exception is rethrown.
+        //This is 'log' mode when error message is being internally stored.
+        $exceptionHandlerProvider.mode('log');
+    }));
 
-    beforeEach(angular.mock.inject(function (_$controller_, _$location_, _$q_, _$rootScope_, _omdbApi_) {
+    beforeEach(angular.mock.inject(function (_$controller_, _$location_, _$q_, _$rootScope_, _omdbApi_, _$exceptionHandler_) {
         $controller = _$controller_;
         $scope = {};
 
@@ -89,6 +91,7 @@ describe('Results Controller', function () {
         injectedRootScope = _$rootScope_;
         injectedOmdbAPI = _omdbApi_;
         injectedLocation = _$location_;
+        injectedExceptionHandler = _$exceptionHandler_;
     }));
 
     it('Should Load Correct Search Results', function () {
@@ -107,7 +110,10 @@ describe('Results Controller', function () {
         injectedLocation.search('q', 'star wars'); //This creates a query via setting the location URL
 
 
-        $controller('ResultsController', {$scope : $scope, $location: injectedLocation});
+        $controller('ResultsController', {
+            $scope: $scope,
+            $location: injectedLocation
+        });
 
         //At this point, AngularJS Event cycle is ready to process and resolve the promise.
         //But we need this line to actually do the processing:
@@ -130,16 +136,22 @@ describe('Results Controller', function () {
             return deferred.promise;
         });
 
+
         injectedLocation.search('q', 'star wars'); //This creates a query via setting the location URL
 
+        // This way to test in the $exceptionHandlerProvider.mode('rethrow') mode
+        // expect(function () {
+        //     $controller('ResultsController', {$scope : $scope, $location: injectedLocation});
+        //     injectedRootScope.$apply();
+        // }).toThrow('Something Went Wrong!');
 
-        expect(function () {
-            $controller('ResultsController', {$scope : $scope, $location: injectedLocation});
-            injectedRootScope.$apply();
-        }).toThrow('Something Went Wrong!');
-
-
-
+        //This way to test in the $exceptionHandlerProvider.mode('log') mode
+        $controller('ResultsController', {
+            $scope: $scope,
+            $location: injectedLocation
+        });
+        injectedRootScope.$apply();
+        expect(injectedExceptionHandler.errors).toEqual(['Something Went Wrong!']);
     });
 
 });

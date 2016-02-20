@@ -11,4 +11,8 @@ describe('From Now Filter', function () {
     it('Should throw error if argument is undefined', function () {
         expect(fromNow).toThrow('Date Value cannot be undefined');
     });
+
+    it('Should return same value is a date is an invalid date', function () {
+        expect(fromNow('invalid_date-example')).toBe('invalid_date-example');
+    })
 });

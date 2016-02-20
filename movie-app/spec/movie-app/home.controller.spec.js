@@ -24,6 +24,10 @@ describe('Home Controller', function () {
 
     beforeEach(angular.mock.module('mainMovieApp'));
 
+    beforeEach(angular.mock.module(function ($logProvider) {
+        $logProvider.debugEnabled(true);
+    }));
+
     beforeEach(angular.mock.module(function ($exceptionHandlerProvider) {
         //The default mode is 'rethrow', when exception is rethrown.
         //This is 'log' mode when error message is being internally stored.
@@ -110,6 +114,7 @@ describe('Home Controller', function () {
         //Should Update after 5 seconds and go back to the first one.
         expect(localScope.fCurrentMovieData.Title).toBe(sampleResults[0].Title);
 
+        expect(injectedLogService.log.logs[0]).toEqual(['standard log']);
         console.log(angular.mock.dump(injectedLogService.log.logs));
         console.log(angular.mock.dump(injectedLogService.info.logs));
         console.log(angular.mock.dump(injectedLogService.error.logs));

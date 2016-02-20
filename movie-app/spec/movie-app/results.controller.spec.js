@@ -77,6 +77,10 @@ describe('Results Controller', function () {
     beforeEach(angular.mock.module('omdb'));
     beforeEach(angular.mock.module('mainMovieApp'));
 
+    beforeEach(angular.mock.module(function ($exceptionHandlerProvider) {
+        $exceptionHandlerProvider.mode('rethrow');
+    }))
+
     beforeEach(angular.mock.inject(function (_$controller_, _$location_, _$q_, _$rootScope_, _omdbApi_) {
         $controller = _$controller_;
         $scope = {};

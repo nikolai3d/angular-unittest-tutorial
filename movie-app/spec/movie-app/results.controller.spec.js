@@ -129,10 +129,12 @@ describe('Results Controller', function () {
         injectedLocation.search('q', 'star wars'); //This creates a query via setting the location URL
 
 
-        $controller('ResultsController', {$scope : $scope, $location: injectedLocation});
-        injectedRootScope.$apply();
+        expect(function () {
+            $controller('ResultsController', {$scope : $scope, $location: injectedLocation});
+            injectedRootScope.$apply();
+        }).toThrow('Something went wrong!');
 
-        expect($scope.errorMessage).toBe('Something went wrong!');
+
 
     });
 

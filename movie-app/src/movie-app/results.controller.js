@@ -14,7 +14,7 @@ angular.module('mainMovieApp')
             .then(function (data) {
                 ioScope.results = data.Search;
             }).catch(function () {
-                ioScope.errorMessage = 'Something went wrong!';
+                throw 'Something went wrong!';
             });
 
         ioScope.expand = function expand(index, id) {

@@ -1,5 +1,5 @@
 angular.module('mainMovieApp')
-    .controller('ResultsController', ['$scope', '$location', 'omdbApi', function (ioScope, iLocation, iOMDBAPI) {
+    .controller('ResultsController', ['$scope', '$location', 'omdbApi', '$exceptionHandler', function (ioScope, iLocation, iOMDBAPI, iExceptionHandler) {
         //ioScope will refer to $scope
 
         //Mock results, not actually using the API:
@@ -13,8 +13,8 @@ angular.module('mainMovieApp')
         iOMDBAPI.search(query)
             .then(function (data) {
                 ioScope.results = data.Search;
-            }).catch(function () {
-                throw 'Something went wrong!';
+            }).catch(function (e) {
+                iExceptionHandler(e);
             });
 
         ioScope.expand = function expand(index, id) {

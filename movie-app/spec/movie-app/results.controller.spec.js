@@ -122,7 +122,7 @@ describe('Results Controller', function () {
     it('Should display Error on search error', function () {
         spyOn(injectedOmdbAPI, 'search').and.callFake(function () {
             var deferred = injectedQ.defer();
-            deferred.reject(); //Same as previous one, but the promise rejects
+            deferred.reject('Something Went Wrong!'); //Same as previous one, but the promise rejects
             return deferred.promise;
         });
 
@@ -132,7 +132,7 @@ describe('Results Controller', function () {
         expect(function () {
             $controller('ResultsController', {$scope : $scope, $location: injectedLocation});
             injectedRootScope.$apply();
-        }).toThrow('Something went wrong!');
+        }).toThrow('Something Went Wrong!');
 
 
 

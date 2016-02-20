@@ -8,7 +8,8 @@ describe('Movie Result Directive', function () {
         Director: "George Lucas",
         Actors: "Mark Hamill, Harrison Ford, Carrie Fisher, Peter Cushing",
         Released: "25 May 1977",
-        Genre: "Action, Adventure, Fantasy"
+        Genre: "Action, Adventure, Fantasy",
+        Plot: "Luke Skywalker joins forces with a Jedi Knight, a cocky pilot, a wookiee and two droids to save the galaxy from the Empire's world-destroying battle-station, while also attempting to rescue Princess Leia from the evil Darth Vader."
     };
 
 
@@ -18,6 +19,7 @@ describe('Movie Result Directive', function () {
         '</div>',
         '<div class="col-sm-8">',
         '<h3 class="ng-binding">Star Wars: Episode IV - A New Hope</h3>',
+            '<p class="ng-binding">Luke Skywalker joins forces with a Jedi Knight, a cocky pilot, a wookiee and two droids to save the galaxy from the Empire\'s world-destroying battle-station, while also attempting to rescue Princess Leia from the evil Darth Vader.</p>',
             '<p class="ng-binding"><strong>Director:</strong> George Lucas</p>',
             '<p class="ng-binding"><strong>Actors:</strong> Mark Hamill, Harrison Ford, Carrie Fisher, Peter Cushing</p>',
             '<p class="ng-binding"><strong>Released:</strong> 25 May 1977</p>',

@@ -14,6 +14,7 @@ angular.module('mainMovieApp')
                 '</div>',
                 '<div class="col-sm-8">',
                     '<h3>{{result.Title}}</h3>',
+                    '<p>{{result.Plot}}</p>',
                     '<p><strong>Director:</strong> {{result.Director}}</p>',
                     '<p><strong>Actors:</strong> {{result.Actors}}</p>',
                     '<p><strong>Released:</strong> {{result.Released}}</p>',

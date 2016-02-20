@@ -52,6 +52,9 @@ describe('Movie Result Directive', function () {
 
         expect(element.html()).toBe(expectedHTML);
 
+        expect(injectedRootScope.$countChildScopes()).toBe(1);
+        expect(injectedRootScope.$countWatchers()).toBe(9);
+
     });
 
 

@@ -25,4 +25,14 @@ describe('From Now Filter', function () {
 
         expect(fromNow(value, baseDate)).toBe('2 years ago');
     });
+
+    it('Should return value of 1 Years Ago #singular #grammar', function () {
+
+        //Enter the TzDate: angular Date wrapper to not depend on local machine's time zone settings.
+        //NOTE: not all of the Date() functionality is implementd in TzDate.
+        var value = new angular.mock.TzDate(0, '2014-07-01T00:00:00.000Z');
+        var baseDate = new angular.mock.TzDate(0, '2015-07-01T00:00:00.000Z');
+
+        expect(fromNow(value, baseDate)).toBe('1 year ago');
+    });
 });

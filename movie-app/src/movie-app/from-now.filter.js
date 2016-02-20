@@ -29,6 +29,11 @@ angular.module('mainMovieApp')
 
             var yearsDiff = Math.floor(diffInSeconds/YEAR_IN_SECONDS);
 
-            return yearsDiff + ' years ago';
+            if (yearsDiff == 1) {
+                return yearsDiff + ' year ago';
+            } else {
+                return yearsDiff + ' years ago';
+            }
+
         };
     });

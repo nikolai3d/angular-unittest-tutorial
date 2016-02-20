@@ -22,7 +22,7 @@ describe('Movie Result Directive', function () {
             '<p class="ng-binding">Luke Skywalker joins forces with a Jedi Knight, a cocky pilot, a wookiee and two droids to save the galaxy from the Empire\'s world-destroying battle-station, while also attempting to rescue Princess Leia from the evil Darth Vader.</p>',
             '<p class="ng-binding"><strong>Director:</strong> George Lucas</p>',
             '<p class="ng-binding"><strong>Actors:</strong> Mark Hamill, Harrison Ford, Carrie Fisher, Peter Cushing</p>',
-            '<p class="ng-binding"><strong>Released:</strong> 25 May 1977</p>',
+            '<p class="ng-binding"><strong>Released:</strong> 25 May 1977 (38 years ago)</p>',
             '<p class="ng-binding"><strong>Genre:</strong> Action, Adventure, Fantasy</p></div>'
     ].join('');
 
@@ -53,7 +53,7 @@ describe('Movie Result Directive', function () {
         expect(element.html()).toBe(expectedHTML);
 
         expect(injectedRootScope.$countChildScopes()).toBe(1);
-        expect(injectedRootScope.$countWatchers()).toBe(9);
+        expect(injectedRootScope.$countWatchers()).toBe(10);
 
     });
 

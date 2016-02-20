@@ -35,4 +35,21 @@ describe('From Now Filter', function () {
 
         expect(fromNow(value, baseDate)).toBe('1 year ago');
     });
+
+    it('Should return value of Seven months ago', function () {
+
+        var value = new angular.mock.TzDate(0, '2015-01-01T00:00:00.000Z');
+        var baseDate = new angular.mock.TzDate(0, '2015-08-01T00:00:00.000Z');
+
+        expect(fromNow(value, baseDate)).toBe('7 months ago');
+    });
+
+    it('Should return value of 1 month ago', function () {
+
+        var value = new angular.mock.TzDate(0, '2015-07-01T00:00:00.000Z');
+        var baseDate = new angular.mock.TzDate(0, '2015-08-01T00:00:00.000Z');
+
+        expect(fromNow(value, baseDate)).toBe('1 month ago');
+    });
+
 });

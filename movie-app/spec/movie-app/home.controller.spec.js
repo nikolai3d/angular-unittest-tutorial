@@ -65,18 +65,18 @@ describe('Home Controller', function () {
 
     it('Should rotate movies every 5 seconds', function () {
         //Should start at the first movie
-        expect(localScope.result.Title).toBe(sampleResults[0].Title);
+        expect(localScope.fCurrentMovieData.Title).toBe(sampleResults[0].Title);
         injectedNgMockInterval.flush(5000);
         //Should Update after 5 seconds.
-        expect(localScope.result.Title).toBe(sampleResults[1].Title);
+        expect(localScope.fCurrentMovieData.Title).toBe(sampleResults[1].Title);
         injectedNgMockInterval.flush(5000);
 
         //Should Update after 5 seconds.
-        expect(localScope.result.Title).toBe(sampleResults[2].Title);
+        expect(localScope.fCurrentMovieData.Title).toBe(sampleResults[2].Title);
         injectedNgMockInterval.flush(5000);
 
         //Should Update after 5 seconds and go back to the first one.
-        expect(localScope.result.Title).toBe(sampleResults[0].Title);
+        expect(localScope.fCurrentMovieData.Title).toBe(sampleResults[0].Title);
 
 
     });

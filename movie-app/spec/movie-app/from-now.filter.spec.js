@@ -9,7 +9,7 @@ describe('From Now Filter', function () {
     }));
 
     it('Should throw error if argument is undefined', function () {
-        expect(fromNow).toThrow('Date Value cannot be undefined');
+        expect(fromNow).not.toThrow();
     });
 
     it('Should return same value is a date is an invalid date', function () {

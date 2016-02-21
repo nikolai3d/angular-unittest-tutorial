@@ -2,7 +2,7 @@ angular.module('mainMovieApp')
     .filter('fromNow', function fromNowFilter() {
         return function (iValue, iOptionalBaseDate) {
             if (!iValue) {
-                throw 'Date Value cannot be undefined';
+                return null;
             }
 
             var date = iValue;
@@ -49,4 +49,3 @@ angular.module('mainMovieApp')
 
         };
     });
-    

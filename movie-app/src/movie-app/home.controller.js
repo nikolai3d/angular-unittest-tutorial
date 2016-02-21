@@ -3,8 +3,8 @@ angular.module('mainMovieApp')
         function ($scope, $interval, omdbApi, PopularMovies, iExceptionHandler, iLogging) {
             iLogging.log('standard log');
             iLogging.info('info log');
-            iLogging.error('error log');
-            iLogging.warn('warn log');
+            //iLogging.error('error log');
+            //iLogging.warn('warn log');
             iLogging.debug('some debug information');
 
             var fCarouselOfMovieIDs = [];
